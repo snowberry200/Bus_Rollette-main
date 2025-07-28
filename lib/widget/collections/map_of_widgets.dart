@@ -9,30 +9,19 @@ class FormWidgetMap {
   final GlobalKey<FormState> formKey;
   final GlobalKey<FromCityDropDownWidgetState> fromCityKey;
   final GlobalKey<ToCityDropDownWidgetState> toCityKey;
-  final GlobalKey<RowWidgetState> rowWidgetKey;
   final GlobalKey<FormWidgetState> formWidgetKey;
 
   FormWidgetMap({
     required this.formKey,
     required this.fromCityKey,
     required this.toCityKey,
-    required this.rowWidgetKey,
     required this.formWidgetKey,
   });
 
   Map<String, Widget> get widgets => {
-    'from': FromCityDropDownWidget(
-      key: fromCityKey,
-      formWidgetKey: formWidgetKey,
-    ),
-    'to': ToCityDropDownWidget(key: toCityKey, formWidgetKey: formWidgetKey),
-    'selectDate': RowWidget(key: rowWidgetKey, formWidgetKey: formWidgetKey),
-    'searchButton': ElevatedButtonWidget(
-      formKey: formKey,
-      fromCityKey: fromCityKey,
-      toCityKey: toCityKey,
-      rowWidgetKey: rowWidgetKey,
-      formWidgetKey: formWidgetKey,
-    ),
+    'from': FromCityDropDownWidget(key: fromCityKey),
+    'to': ToCityDropDownWidget(key: toCityKey),
+    'selectDate': RowWidget(),
+    'searchButton': SearchButton(formKey: formKey),
   };
 }

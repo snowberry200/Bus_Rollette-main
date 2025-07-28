@@ -1,70 +1,23 @@
 import 'package:bus_rullette/bloc/search_bloc.dart';
-import 'package:bus_rullette/widget/form_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class RowWidget extends StatefulWidget {
-  final GlobalKey<FormWidgetState> formWidgetKey;
-
-  final DateTime? departureDate;
-
-  const RowWidget({super.key, this.departureDate, required this.formWidgetKey});
-
-  @override
-  State<RowWidget> createState() => RowWidgetState();
-}
-
-class RowWidgetState extends State<RowWidget> {
-  DateTime? departureDate;
-  @override
-  void initState() {
-    super.initState();
-    departureDate = widget.departureDate;
-  }
-
-  Future<DateTime?> pickDate(BuildContext context) async {
-    //final rowBloc = widget.formWidgetKey.currentState?.formBloc;
-    final selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 28)),
-    );
-    if (selectedDate != null) {
-      departureDate = selectedDate;
-      //rowBloc?.add(DateChangeEvent(departureDate: departureDate));
-      setState(() {
-        departureDate;
-      });
-    }
-    if (kDebugMode) {
-      print(departureDate);
-    }
-    return departureDate;
-  }
-
-  String getFormattedDate(
-    DateTime departureDate, {
-    String pattern = "dd/MM/yyyy",
-  }) {
-    return DateFormat(pattern).format(departureDate);
-  }
+class RowWidget extends StatelessWidget {
+  const RowWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SearchBloc, SearchState>(
-      listener: (context, state) {},
+    return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () => pickDate(context),
-              child: Text(
-                "Select Date :",
-                style: const TextStyle(
+              onPressed: () => _pickDate(context),
+              child: const Text(
+                "Select Date:",
+                style: TextStyle(
                   color: Colors.cyan,
                   fontSize: 20,
                   fontStyle: FontStyle.italic,
@@ -72,11 +25,11 @@ class RowWidgetState extends State<RowWidget> {
               ),
             ),
             Text(
-              departureDate != null
-                  ? getFormattedDate(departureDate!)
-                  : "please select a date",
-              style: const TextStyle(
-                color: Colors.amber,
+              state.departureDate != null
+                  ? DateFormat('dd/MM/yyyy').format(state.departureDate!)
+                  : "Please select a date",
+              style: TextStyle(
+                color: state.departureDate != null ? Colors.amber : Colors.grey,
                 fontSize: 15,
                 fontStyle: FontStyle.italic,
               ),
@@ -85,5 +38,21 @@ class RowWidgetState extends State<RowWidget> {
         );
       },
     );
+  }
+
+  static Future<void> _pickDate(BuildContext context) async {
+    final rowBloc = context.read<SearchBloc>();
+    final currentDate = rowBloc.state.departureDate ?? DateTime.now();
+
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+
+    if (selectedDate != null) {
+      rowBloc.add(DateChangeEvent(departureDate: selectedDate));
+    }
   }
 }

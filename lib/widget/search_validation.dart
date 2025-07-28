@@ -10,7 +10,7 @@ class SearchValidation {
     required DateTime? departureDate,
   }) {
     if (fromCity == null || toCity == null) {
-      showError(context, "Please fill all fields");
+      showError(context, "Please fill all fields.");
       return false;
     }
     if (departureDate == null) {

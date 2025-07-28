@@ -1,16 +1,14 @@
-import 'package:bus_rullette/bloc/search_bloc.dart';
-import 'package:bus_rullette/widget/form_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bus_rullette/widget/collections/list_cities.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FromCityDropDownWidget extends StatefulWidget {
-  final GlobalKey<FormWidgetState> formWidgetKey;
+import 'package:bus_rullette/bloc/search_bloc.dart';
+import 'package:bus_rullette/widget/collections/list_cities.dart';
 
-  const FromCityDropDownWidget({super.key, required this.formWidgetKey});
+class FromCityDropDownWidget extends StatefulWidget {
+  final SearchBloc? fromCityBloc;
+
+  const FromCityDropDownWidget({super.key, this.fromCityBloc});
 
   @override
   State<FromCityDropDownWidget> createState() => FromCityDropDownWidgetState();
@@ -18,12 +16,23 @@ class FromCityDropDownWidget extends StatefulWidget {
 
 class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
   String? fromCity;
+  SearchBloc? fromCityBloc;
+  @override
+  void initState() {
+    super.initState();
+    fromCityBloc = widget.fromCityBloc;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
-        final fromCityBloc = widget.formWidgetKey.currentState?.formBloc;
+        final fromCityBloc = context.read<SearchBloc>();
+
         return DropdownButtonFormField<String>(
+          value: state.fromCity,
+          validator: (value) =>
+              value == null ? 'Please select a "from" city' : null,
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),
           icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.grey),
@@ -36,19 +45,14 @@ class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          value: state.fromCity,
+          items: cities
+              .map((city) => DropdownMenuItem(value: city, child: Text(city)))
+              .toList(),
           onChanged: (value) {
             if (value != null) {
-              fromCity = value;
-              fromCityBloc?.add(FromCityChangeEvent(fromCity: state.fromCity));
-              if (kDebugMode) {
-                print(fromCity);
-              }
+              fromCityBloc.add(FromCityChangeEvent(fromCity: value));
             }
           },
-          items: cities.map((city) {
-            return DropdownMenuItem(value: city, child: Text(city));
-          }).toList(),
         );
       },
     );

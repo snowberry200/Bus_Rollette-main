@@ -9,75 +9,81 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  SearchBloc({required this.formKey})
-    : super(SearchState.initial(_InitialSearchState())) {
+  SearchBloc({required this.formKey}) : super((_InitialSearchState())) {
     on<FromCityChangeEvent>(_onFromCityChanged);
     on<ToCityChangeEvent>(_onToCityChanged);
     on<DateChangeEvent>(_onDateChanged);
     on<SearchButtonPressedEvent>(_onSearchButtonPressed);
+    on<SearchStateError>(_onSearchStateError);
   }
 
-  FutureOr<void> _onFromCityChanged(
+  void _onFromCityChanged(
     FromCityChangeEvent event,
     Emitter<SearchState> emit,
   ) {
-    emit(SearchState.initial(_SuccessSearchState(fromCity: event.fromCity)));
+    emit(state.copyWith(fromCity: event.fromCity, errorMessage: null));
   }
 
-  FutureOr<void> _onToCityChanged(
-    ToCityChangeEvent event,
-    Emitter<SearchState> emit,
-  ) {
-    emit(SearchState.initial(_SuccessSearchState(toCity: event.toCity)));
+  void _onToCityChanged(ToCityChangeEvent event, Emitter<SearchState> emit) {
+    emit(state.copyWith(toCity: event.toCity, errorMessage: null));
   }
 
-  FutureOr<void> _onDateChanged(
-    DateChangeEvent event,
-    Emitter<SearchState> emit,
-  ) {
-    SearchState.initial(
-      _SuccessSearchState(departureDate: event.departureDate),
+  void _onDateChanged(DateChangeEvent event, Emitter<SearchState> emit) {
+    emit(
+      state.copyWith(departureDate: event.departureDate, errorMessage: null),
     );
   }
 
-  FutureOr<void> _onSearchButtonPressed(
+  Future<void> _onSearchButtonPressed(
     SearchButtonPressedEvent event,
     Emitter<SearchState> emit,
-  ) {
-    emit(
-      SearchState.loading(
-        _SuccessSearchState(
+  ) async {
+    // Set loading state to true
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
+    try {
+      // Simulate API delay
+      await Future.delayed(const Duration(seconds: 3));
+
+      // Business validation
+      final isValid = SearchValidation.validateSearch(
+        fromCity: event.fromCity!,
+        toCity: event.toCity!,
+        departureDate: event.departureDate!,
+        context: formKey.currentContext!,
+      );
+
+      if (!isValid) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: 'Invalid search parameters',
+          ),
+        );
+        return;
+      }
+
+      // Success case - set loading to false
+      emit(
+        state.copyWith(
+          isLoading: false,
           fromCity: event.fromCity,
           toCity: event.toCity,
           departureDate: event.departureDate,
-          isLoading: true,
+          errorMessage: null,
         ),
-      ),
-    );
-
-    if (event.fromCity == null ||
-        event.toCity == null ||
-        event.departureDate == null) {
+      );
+    } catch (e) {
       emit(
-        SearchState.error(
-          _ErrorSearchState(
-            errorMessage: 'Please fill in all fields.',
-            fromCity: event.fromCity,
-            toCity: event.toCity,
-            departureDate: event.departureDate,
-          ),
+        state.copyWith(
+          isLoading: false,
+          errorMessage: 'Search failed: ${e.toString()}',
         ),
       );
     }
-    emit(
-      SearchState.success(
-        _SuccessSearchState(
-          resultedState: SearchValidation.validateSearch,
-          fromCity: event.fromCity,
-          toCity: event.toCity,
-          departureDate: event.departureDate,
-        ),
-      ),
-    );
+  }
+
+  void _onSearchStateError(SearchStateError event, Emitter<SearchState> emit) {
+    emit(state.copyWith(errorMessage: event.errorMessage));
   }
 }
