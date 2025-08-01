@@ -14,76 +14,103 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<ToCityChangeEvent>(_onToCityChanged);
     on<DateChangeEvent>(_onDateChanged);
     on<SearchButtonPressedEvent>(_onSearchButtonPressed);
-    on<SearchStateError>(_onSearchStateError);
   }
 
   void _onFromCityChanged(
     FromCityChangeEvent event,
     Emitter<SearchState> emit,
   ) {
-    emit(state.copyWith(fromCity: event.fromCity, errorMessage: null));
+    emit(
+      _InitialSearchState(
+        fromCity: event.fromCity,
+        toCity: state.toCity,
+        departureDate: state.departureDate,
+        isLoading: state.isLoading,
+        resultedState: SearchValidation.validateSearch,
+      ),
+      //state.copyWith(fromCity: event.fromCity)
+    );
   }
 
   void _onToCityChanged(ToCityChangeEvent event, Emitter<SearchState> emit) {
-    emit(state.copyWith(toCity: event.toCity, errorMessage: null));
+    emit(
+      _InitialSearchState(
+        fromCity: state.fromCity,
+        toCity: event.toCity,
+        departureDate: state.departureDate,
+        isLoading: state.isLoading,
+        resultedState: SearchValidation.validateSearch,
+      ),
+      //state.copyWith(toCity: event.toCity)
+    );
   }
 
   void _onDateChanged(DateChangeEvent event, Emitter<SearchState> emit) {
     emit(
-      state.copyWith(departureDate: event.departureDate, errorMessage: null),
+      _InitialSearchState(
+        fromCity: state.fromCity,
+        toCity: state.toCity,
+        departureDate: event.departureDate,
+        isLoading: state.isLoading,
+        resultedState: SearchValidation.validateSearch,
+      ),
+      //state.copyWith(departureDate: event.departureDate)
     );
   }
 
-  Future<void> _onSearchButtonPressed(
+  FutureOr<void> _onSearchButtonPressed(
     SearchButtonPressedEvent event,
     Emitter<SearchState> emit,
   ) async {
-    // Set loading state to true
-    emit(state.copyWith(isLoading: true, errorMessage: null));
-
-    try {
-      // Simulate API delay
-      await Future.delayed(const Duration(seconds: 3));
-
-      // Business validation
-      final isValid = SearchValidation.validateSearch(
-        fromCity: event.fromCity!,
-        toCity: event.toCity!,
-        departureDate: event.departureDate!,
-        context: formKey.currentContext!,
-      );
-
-      if (!isValid) {
-        emit(
-          state.copyWith(
-            isLoading: false,
-            errorMessage: 'Invalid search parameters',
-          ),
-        );
-        return;
-      }
-
-      // Success case - set loading to false
-      emit(
-        state.copyWith(
-          isLoading: false,
+    //loading state
+    emit(
+      SearchState.loading(
+        _LoadingSearchState(
           fromCity: event.fromCity,
           toCity: event.toCity,
           departureDate: event.departureDate,
-          errorMessage: null,
+          isLoading: true,
+          resultedState: SearchValidation.validateSearch,
         ),
+      ),
+      //state.copyWith(isLoading: true)
+    );
+
+    //error state
+    // if (state.fromCity == null ||
+    //     state.toCity == null ||
+    //     state.departureDate == null) {
+    //   emit(state.copyWith(isLoading: false));
+    // }
+
+    try {
+      await Future.delayed(const Duration(seconds: 4));
+
+      emit(
+        SearchState.success(
+          _SuccessSearchState(
+            fromCity: event.fromCity,
+            toCity: event.toCity,
+            departureDate: event.departureDate,
+            isLoading: false,
+            resultedState: SearchValidation.validateSearch,
+          ),
+        ),
+        // state.copyWith(
+        //   isLoading: false,
+        //   fromCity: event.fromCity,
+        //   toCity: event.toCity,
+        //   departureDate: event.departureDate,
+        //   resultedState: SearchValidation.validateSearch,
+        // ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           isLoading: false,
-          errorMessage: 'Search failed: ${e.toString()}',
+          resultedState: SearchValidation.validateSearch,
         ),
       );
     }
-  }
-
-  void _onSearchStateError(SearchStateError event, Emitter<SearchState> emit) {
-    emit(state.copyWith(errorMessage: event.errorMessage));
   }
 }

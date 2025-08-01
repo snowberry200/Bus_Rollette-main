@@ -23,14 +23,7 @@ class MyApp extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black87,
       appBar: AppBar(title: Text("Search")),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(16.0),
-          physics: const BouncingScrollPhysics(),
-          children: [FormWidget(), SizedBox(height: 10.0)],
-        ),
-      ),
+      body: Center(child: FormWidget()),
     );
   }
 }

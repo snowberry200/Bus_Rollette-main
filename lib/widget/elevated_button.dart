@@ -10,24 +10,12 @@ class SearchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SearchBloc, SearchState>(
-      listener: (context, state) {
-        if (state.errorMessage != null) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
-        }
-      },
+    return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         return ElevatedButton(
           onPressed: state.isLoading ? null : () => _handleSearch(context),
-          style: ElevatedButton.styleFrom(minimumSize: const Size(200, 48)),
           child: state.isLoading
-              ? SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: SearchValidation.showProgressiveBar(),
-                )
+              ? const CircularProgressIndicator()
               : const Text("Search"),
         );
       },
@@ -35,43 +23,35 @@ class SearchButton extends StatelessWidget {
   }
 
   Future<void> _handleSearch(BuildContext context) async {
-    final bloc = context.read<SearchBloc>();
     final form = formKey.currentState!;
+    final bloc = context.read<SearchBloc>();
 
+    // Step 1: Form validation
     if (!form.validate()) return;
 
-    try {
-      final isValid = SearchValidation.validateSearch(
+    // Step 2: Business validation through BLoC
+    final isValid = SearchValidation.validateSearch(
+      fromCity: bloc.state.fromCity,
+      toCity: bloc.state.toCity,
+      departureDate: bloc.state.departureDate,
+      context: context,
+    );
+    bloc.add(
+      SearchButtonPressedEvent(
         fromCity: bloc.state.fromCity,
         toCity: bloc.state.toCity,
         departureDate: bloc.state.departureDate,
-        context: context,
-      );
-
-      if (!isValid) return;
-
-      // If search is valid, emit a success state
+      ),
+    );
+    if (!isValid) {
       bloc.add(
         SearchButtonPressedEvent(
           fromCity: bloc.state.fromCity,
           toCity: bloc.state.toCity,
           departureDate: bloc.state.departureDate,
-          isLoading: true,
         ),
       );
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Search failed: ${e.toString()}')));
-    } finally {
-      bloc.add(
-        SearchButtonPressedEvent(
-          fromCity: bloc.state.fromCity,
-          toCity: bloc.state.toCity,
-          departureDate: bloc.state.departureDate,
-          isLoading: false,
-        ),
-      );
+      return;
     }
   }
 }
