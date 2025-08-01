@@ -44,28 +44,36 @@ class FormWidgetState extends State<FormWidget> {
     return BlocConsumer<SearchBloc, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: minWidth),
-          child: Form(
-            key: formKey,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(edgePaddings),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    formWidgetMap.widgets['from']!,
-                    const SizedBox(height: sizedHeight),
-                    formWidgetMap.widgets['to']!,
-                    const SizedBox(height: sizedHeight),
-                    formWidgetMap.widgets['selectDate']!,
-                    const SizedBox(height: sizedHeight),
-                    formWidgetMap.widgets['searchButton']!,
-                  ],
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: minWidth,
+                minHeight: constraints.maxHeight,
+                maxHeight: constraints.maxHeight,
+              ),
+              child: Form(
+                key: formKey,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(edgePaddings),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        formWidgetMap.widgets['from']!,
+                        const SizedBox(height: sizedHeight),
+                        formWidgetMap.widgets['to']!,
+                        const SizedBox(height: sizedHeight),
+                        formWidgetMap.widgets['selectDate']!,
+                        const SizedBox(height: sizedHeight),
+                        formWidgetMap.widgets['searchButton']!,
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

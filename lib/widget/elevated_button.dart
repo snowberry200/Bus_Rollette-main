@@ -22,7 +22,7 @@ class SearchButton extends StatelessWidget {
     );
   }
 
-  Future<void> _handleSearch(BuildContext context) async {
+  void _handleSearch(BuildContext context) {
     final form = formKey.currentState!;
     final buttonBloc = context.read<SearchBloc>();
 
@@ -44,13 +44,6 @@ class SearchButton extends StatelessWidget {
       ),
     );
     if (!isValid) {
-      buttonBloc.add(
-        SearchButtonPressedEvent(
-          fromCity: buttonBloc.state.fromCity,
-          toCity: buttonBloc.state.toCity,
-          departureDate: buttonBloc.state.departureDate,
-        ),
-      );
       return;
     }
   }

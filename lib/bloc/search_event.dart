@@ -28,8 +28,3 @@ class SearchButtonPressedEvent extends SearchEvent {
     required this.departureDate,
   });
 }
-
-class SearchStateError extends SearchEvent {
-  final String? errorMessage;
-  SearchStateError({required this.errorMessage});
-}

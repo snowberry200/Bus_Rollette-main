@@ -1,12 +1,13 @@
 part of 'search_bloc.dart';
 
 abstract class SearchState {
-  final String? fromCity;
+  late final String? fromCity;
   final String? toCity;
   final DateTime? departureDate;
   final bool isLoading;
   final Object? resultedState;
 
+  // Constructor
   SearchState({
     this.fromCity,
     this.toCity,
@@ -15,6 +16,7 @@ abstract class SearchState {
     this.resultedState,
   });
 
+  // CopyWith method to create a new instance with updated values
   SearchState copyWith({
     String? fromCity,
     String? toCity,
@@ -29,19 +31,10 @@ abstract class SearchState {
     toCity: prevState.toCity,
     departureDate: prevState.departureDate,
     isLoading: false,
-    resultedState: SearchValidation.validateSearch,
+    resultedState: prevState.resultedState,
   );
 
-  //factory method to create an error state
-  // factory SearchState.error(SearchState prevState) => _ErrorSearchState(
-  //   fromCity: prevState.fromCity,
-  //   toCity: prevState.toCity,
-  //   departureDate: prevState.departureDate,
-  //   isLoading: false,
-  //   resultedState: SearchValidation.validateSearch,
-  // );
-
-  //factory method to create a loading state
+  // Factory method to create a loading state
   factory SearchState.loading(SearchState prevState) {
     return _LoadingSearchState(
       fromCity: prevState.fromCity,
@@ -80,6 +73,8 @@ class _InitialSearchState extends SearchState {
     bool? isLoading,
     Object? resultedState,
   }) {
+    // Return a new instance of _InitialSearchState with updated values
+    // This allows for immutability and ensures that the state can be updated without modifying the original instance
     return _InitialSearchState(
       fromCity: fromCity ?? this.fromCity,
       toCity: toCity ?? this.toCity,
@@ -89,31 +84,7 @@ class _InitialSearchState extends SearchState {
   }
 }
 
-// class _ErrorSearchState extends SearchState {
-//   _ErrorSearchState({
-//     super.fromCity,
-//     super.departureDate,
-//     super.toCity,
-//     super.isLoading = false,
-//     super.resultedState = SearchValidation.validateSearch,
-//   });
-//   @override
-//   SearchState copyWith({
-//     String? fromCity,
-//     String? toCity,
-//     DateTime? departureDate,
-//     bool? isLoading,
-//     Object? resultedState,
-//   }) {
-//     return _ErrorSearchState(
-//       fromCity: fromCity ?? this.fromCity,
-//       toCity: toCity ?? this.toCity,
-//       departureDate: departureDate ?? this.departureDate,
-//       isLoading: isLoading ?? this.isLoading,
-//     );
-//   }
-// }
-
+//_LoadingSearchState Class
 class _LoadingSearchState extends SearchState {
   _LoadingSearchState({
     super.fromCity,

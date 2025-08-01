@@ -86,10 +86,10 @@ class SearchValidation {
 
   static CircularProgressIndicator showProgressiveBar() {
     return const CircularProgressIndicator(
-      strokeCap: StrokeCap.round,
-      backgroundColor: CupertinoColors.systemBlue,
+      strokeCap: StrokeCap.square,
+      backgroundColor: CupertinoColors.systemGrey,
       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      strokeWidth: 3.0,
+      strokeWidth: 5.0,
     );
   }
 }

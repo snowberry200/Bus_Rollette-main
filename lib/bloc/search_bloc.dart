@@ -76,15 +76,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       //state.copyWith(isLoading: true)
     );
 
-    //error state
-    // if (state.fromCity == null ||
-    //     state.toCity == null ||
-    //     state.departureDate == null) {
-    //   emit(state.copyWith(isLoading: false));
-    // }
-
     try {
+      // Simulate a network call or processing delay
       await Future.delayed(const Duration(seconds: 4));
+
+      // success state
+      // all search Validation is done in the SearchValidation class
+      //if currentsState.validate is done is the SearchButton class
 
       emit(
         SearchState.success(
