@@ -15,7 +15,7 @@ class SearchButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: state.isLoading ? null : () => _handleSearch(context),
           child: state.isLoading
-              ? const CircularProgressIndicator()
+              ? SearchValidation.showProgressiveBar()
               : const Text("Search"),
         );
       },
@@ -24,31 +24,31 @@ class SearchButton extends StatelessWidget {
 
   Future<void> _handleSearch(BuildContext context) async {
     final form = formKey.currentState!;
-    final bloc = context.read<SearchBloc>();
+    final buttonBloc = context.read<SearchBloc>();
 
     // Step 1: Form validation
     if (!form.validate()) return;
 
     // Step 2: Business validation through BLoC
     final isValid = SearchValidation.validateSearch(
-      fromCity: bloc.state.fromCity,
-      toCity: bloc.state.toCity,
-      departureDate: bloc.state.departureDate,
+      fromCity: buttonBloc.state.fromCity,
+      toCity: buttonBloc.state.toCity,
+      departureDate: buttonBloc.state.departureDate,
       context: context,
     );
-    bloc.add(
+    buttonBloc.add(
       SearchButtonPressedEvent(
-        fromCity: bloc.state.fromCity,
-        toCity: bloc.state.toCity,
-        departureDate: bloc.state.departureDate,
+        fromCity: buttonBloc.state.fromCity,
+        toCity: buttonBloc.state.toCity,
+        departureDate: buttonBloc.state.departureDate,
       ),
     );
     if (!isValid) {
-      bloc.add(
+      buttonBloc.add(
         SearchButtonPressedEvent(
-          fromCity: bloc.state.fromCity,
-          toCity: bloc.state.toCity,
-          departureDate: bloc.state.departureDate,
+          fromCity: buttonBloc.state.fromCity,
+          toCity: buttonBloc.state.toCity,
+          departureDate: buttonBloc.state.departureDate,
         ),
       );
       return;

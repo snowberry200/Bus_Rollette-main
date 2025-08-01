@@ -1,5 +1,4 @@
 import 'package:bus_rullette/bloc/search_bloc.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -23,9 +22,6 @@ class RowWidget extends StatefulWidget {
 
     if (selectedDate != null) {
       rowBloc.add(DateChangeEvent(departureDate: selectedDate));
-      if (kDebugMode) {
-        debugPrint('Selected date: $selectedDate');
-      }
     }
   }
 }

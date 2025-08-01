@@ -15,7 +15,6 @@ class FormWidget extends StatefulWidget {
 }
 
 class FormWidgetState extends State<FormWidget> {
-  SearchBloc? formBloc;
   final formKey = GlobalKey<FormState>();
   final fromCityKey = GlobalKey<FromCityDropDownWidgetState>();
   final toCityKey = GlobalKey<ToCityDropDownWidgetState>();

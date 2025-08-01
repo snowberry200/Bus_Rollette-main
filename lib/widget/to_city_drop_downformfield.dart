@@ -32,8 +32,7 @@ class ToCityDropDownWidgetState extends State<ToCityDropDownWidget> {
 
         return DropdownButtonFormField<String>(
           value: state.toCity,
-          validator: (value) =>
-              value == null ? 'Please select a "to" city' : null,
+
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),
           icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.grey),

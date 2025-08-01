@@ -31,8 +31,7 @@ class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
 
         return DropdownButtonFormField<String>(
           value: state.fromCity,
-          validator: (value) =>
-              value == null ? 'Please select a "from" city' : null,
+
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),
           icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.grey),
@@ -40,7 +39,7 @@ class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
           hint: const Text(
             "from:",
             style: TextStyle(
-              color: Colors.blue,
+              color: Colors.green,
               fontSize: 18,
               fontStyle: FontStyle.italic,
             ),
