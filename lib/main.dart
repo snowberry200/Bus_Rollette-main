@@ -1,18 +1,8 @@
-import 'package:bus_rullette/bloc/search_bloc.dart';
 import 'package:bus_rullette/widget/form_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => SearchBloc(formKey: GlobalKey<FormState>()),
-        child: MyApp(),
-      ),
-    ),
-  );
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

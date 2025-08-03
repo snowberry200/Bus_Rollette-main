@@ -1,10 +1,11 @@
 part of 'search_bloc.dart';
 
 abstract class SearchState {
-  late final String? fromCity;
+  final String? fromCity;
   final String? toCity;
   final DateTime? departureDate;
   final bool isLoading;
+  final String? errorMessage;
   final Object? resultedState;
 
   // Constructor
@@ -13,6 +14,7 @@ abstract class SearchState {
     this.toCity,
     this.departureDate,
     this.isLoading = false,
+    this.errorMessage,
     this.resultedState,
   });
 
@@ -22,6 +24,7 @@ abstract class SearchState {
     String? toCity,
     DateTime? departureDate,
     bool? isLoading,
+    String? errorMessage,
     Object? resultedState,
   });
 
@@ -30,7 +33,8 @@ abstract class SearchState {
     fromCity: prevState.fromCity,
     toCity: prevState.toCity,
     departureDate: prevState.departureDate,
-    isLoading: false,
+    isLoading: prevState.isLoading,
+    errorMessage: prevState.errorMessage,
     resultedState: prevState.resultedState,
   );
 
@@ -40,7 +44,8 @@ abstract class SearchState {
       fromCity: prevState.fromCity,
       toCity: prevState.toCity,
       departureDate: prevState.departureDate,
-      isLoading: true,
+      isLoading: prevState.isLoading,
+      errorMessage: prevState.errorMessage,
       resultedState: prevState.resultedState,
     );
   }
@@ -50,7 +55,19 @@ abstract class SearchState {
       fromCity: prevState.fromCity,
       toCity: prevState.toCity,
       departureDate: prevState.departureDate,
-      isLoading: false,
+      isLoading: prevState.isLoading,
+      errorMessage: prevState.errorMessage,
+      resultedState: prevState.resultedState,
+    );
+  }
+  // Factory method to create an error state
+  factory SearchState.error(SearchState prevState, String errorMessage) {
+    return _ErrorSearchState(
+      fromCity: prevState.fromCity,
+      toCity: prevState.toCity,
+      departureDate: prevState.departureDate,
+      isLoading: prevState.isLoading,
+      errorMessage: errorMessage,
       resultedState: prevState.resultedState,
     );
   }
@@ -58,6 +75,7 @@ abstract class SearchState {
 
 class _InitialSearchState extends SearchState {
   _InitialSearchState({
+    super.errorMessage,
     super.fromCity,
     super.toCity,
     super.departureDate,
@@ -71,6 +89,7 @@ class _InitialSearchState extends SearchState {
     String? toCity,
     DateTime? departureDate,
     bool? isLoading,
+    String? errorMessage,
     Object? resultedState,
   }) {
     // Return a new instance of _InitialSearchState with updated values
@@ -80,6 +99,8 @@ class _InitialSearchState extends SearchState {
       toCity: toCity ?? this.toCity,
       departureDate: departureDate ?? this.departureDate,
       isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      resultedState: resultedState ?? this.resultedState,
     );
   }
 }
@@ -90,7 +111,8 @@ class _LoadingSearchState extends SearchState {
     super.fromCity,
     super.departureDate,
     super.toCity,
-    super.isLoading = true,
+    super.isLoading,
+    super.errorMessage,
     super.resultedState,
   });
   @override
@@ -99,6 +121,7 @@ class _LoadingSearchState extends SearchState {
     String? fromCity,
     String? toCity,
     bool? isLoading,
+    String? errorMessage,
     Object? resultedState,
   }) {
     return _LoadingSearchState(
@@ -106,6 +129,7 @@ class _LoadingSearchState extends SearchState {
       fromCity: fromCity ?? this.fromCity,
       toCity: toCity ?? this.toCity,
       isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
       resultedState: resultedState ?? this.resultedState,
     );
   }
@@ -116,7 +140,8 @@ class _SuccessSearchState extends SearchState {
     super.fromCity,
     super.departureDate,
     super.toCity,
-    super.isLoading = false,
+    super.isLoading,
+    super.errorMessage,
     required super.resultedState,
   });
   @override
@@ -125,6 +150,7 @@ class _SuccessSearchState extends SearchState {
     String? fromCity,
     String? toCity,
     bool? isLoading,
+    String? errorMessage,
     Object? resultedState,
   }) {
     return _SuccessSearchState(
@@ -132,6 +158,37 @@ class _SuccessSearchState extends SearchState {
       fromCity: fromCity ?? this.fromCity,
       toCity: toCity ?? this.toCity,
       isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      resultedState: resultedState ?? this.resultedState,
+    );
+  }
+}
+
+class _ErrorSearchState extends SearchState {
+  _ErrorSearchState({
+    super.fromCity,
+    super.departureDate,
+    super.toCity,
+    super.isLoading,
+    required super.errorMessage,
+    super.resultedState,
+  });
+
+  @override
+  SearchState copyWith({
+    DateTime? departureDate,
+    String? fromCity,
+    String? toCity,
+    bool? isLoading,
+    String? errorMessage,
+    Object? resultedState,
+  }) {
+    return _ErrorSearchState(
+      departureDate: departureDate ?? this.departureDate,
+      fromCity: fromCity ?? this.fromCity,
+      toCity: toCity ?? this.toCity,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
       resultedState: resultedState ?? this.resultedState,
     );
   }

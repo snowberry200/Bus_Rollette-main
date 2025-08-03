@@ -28,7 +28,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         isLoading: state.isLoading,
         resultedState: SearchValidation.validateSearch,
       ),
-      //state.copyWith(fromCity: event.fromCity)
     );
   }
 
@@ -41,7 +40,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         isLoading: state.isLoading,
         resultedState: SearchValidation.validateSearch,
       ),
-      //state.copyWith(toCity: event.toCity)
     );
   }
 
@@ -54,7 +52,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         isLoading: state.isLoading,
         resultedState: SearchValidation.validateSearch,
       ),
-      //state.copyWith(departureDate: event.departureDate)
     );
   }
 
@@ -62,49 +59,66 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchButtonPressedEvent event,
     Emitter<SearchState> emit,
   ) async {
-    //loading state
-    emit(
-      SearchState.loading(
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
+    try {
+      final isValid = SearchValidation.validateSearch(
+        fromCity: event.fromCity,
+        toCity: event.toCity,
+        departureDate: event.departureDate,
+        context: formKey.currentContext!,
+        isLoading: event.isLoading,
+      );
+
+      if (!isValid) {
+        return;
+      }
+
+      //loading state
+      emit(
         _LoadingSearchState(
+          fromCity: state.fromCity,
+          toCity: state.toCity,
+          departureDate: state.departureDate,
+          isLoading: event.isLoading,
+          resultedState: isValid,
+        ),
+      );
+
+      // Simulate a network call or processing delay
+      await Future.delayed(const Duration(seconds: 3));
+
+      emit(
+        _SuccessSearchState(
           fromCity: event.fromCity,
           toCity: event.toCity,
           departureDate: event.departureDate,
-          isLoading: true,
-          resultedState: SearchValidation.validateSearch,
+          isLoading: event.isLoading,
+          resultedState: isValid,
+          errorMessage: state.errorMessage,
         ),
-      ),
-      //state.copyWith(isLoading: true)
-    );
-
-    try {
-      // Simulate a network call or processing delay
-      await Future.delayed(const Duration(seconds: 4));
-
-      // success state
-      // all search Validation is done in the SearchValidation class
-      //if currentsState.validate is done is the SearchButton class
-
-      emit(
-        SearchState.success(
-          _SuccessSearchState(
-            fromCity: event.fromCity,
-            toCity: event.toCity,
-            departureDate: event.departureDate,
-            isLoading: false,
-            resultedState: SearchValidation.validateSearch,
-          ),
-        ),
-        // state.copyWith(
-        //   isLoading: false,
-        //   fromCity: event.fromCity,
-        //   toCity: event.toCity,
-        //   departureDate: event.departureDate,
-        //   resultedState: SearchValidation.validateSearch,
-        // ),
       );
     } catch (e) {
+      // Emit error state
       emit(
-        state.copyWith(
+        _ErrorSearchState(
+          fromCity: state.fromCity,
+          toCity: state.toCity,
+          departureDate: state.departureDate,
+          isLoading: state.isLoading,
+          errorMessage: e.toString(),
+          resultedState: SearchValidation.validateSearch,
+        ),
+      );
+    } finally {
+      // Reset the loading state after the search is complete
+      emit(
+        _InitialSearchState(
+          fromCity: event.fromCity,
+          toCity: event.toCity,
+          departureDate: event.departureDate,
           isLoading: false,
           resultedState: SearchValidation.validateSearch,
         ),

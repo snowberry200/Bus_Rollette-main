@@ -13,29 +13,35 @@ class SearchButton extends StatelessWidget {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size.fromHeight(50),
+            fixedSize: const Size(80, 20),
+            backgroundColor: Colors.transparent,
+            overlayColor: Colors.transparent,
+          ),
           onPressed: state.isLoading ? null : () => _handleSearch(context),
           child: state.isLoading
               ? SearchValidation.showProgressiveBar()
-              : const Text("Search"),
+              : const Text(
+                  "Search",
+                  softWrap: true,
+                  textScaler: TextScaler.noScaling,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         );
       },
     );
   }
 
   void _handleSearch(BuildContext context) {
-    final form = formKey.currentState!;
     final buttonBloc = context.read<SearchBloc>();
-
-    // Step 1: Form validation
-    if (!form.validate()) return;
-
-    // Step 2: Business validation through BLoC
-    final isValid = SearchValidation.validateSearch(
-      fromCity: buttonBloc.state.fromCity,
-      toCity: buttonBloc.state.toCity,
-      departureDate: buttonBloc.state.departureDate,
-      context: context,
-    );
     buttonBloc.add(
       SearchButtonPressedEvent(
         fromCity: buttonBloc.state.fromCity,
@@ -43,8 +49,5 @@ class SearchButton extends StatelessWidget {
         departureDate: buttonBloc.state.departureDate,
       ),
     );
-    if (!isValid) {
-      return;
-    }
   }
 }

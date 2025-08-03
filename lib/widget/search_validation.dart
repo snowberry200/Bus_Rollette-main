@@ -8,6 +8,7 @@ class SearchValidation {
     required String? fromCity,
     required String? toCity,
     required DateTime? departureDate,
+    required bool? isLoading,
   }) {
     if (fromCity == null) {
       showError(context, "please select a departure city.");
@@ -34,6 +35,10 @@ class SearchValidation {
     if (departureDate.isBefore(DateTime.now())) {
       showError(context, "Please select a future date");
       return false;
+    }
+
+    if (isLoading == true) {
+      showProgressiveBar();
     }
 
     //Validate route
@@ -87,7 +92,7 @@ class SearchValidation {
   static CircularProgressIndicator showProgressiveBar() {
     return const CircularProgressIndicator(
       strokeCap: StrokeCap.square,
-      backgroundColor: CupertinoColors.systemGrey,
+      backgroundColor: CupertinoColors.darkBackgroundGray,
       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       strokeWidth: 5.0,
     );

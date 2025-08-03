@@ -22,6 +22,7 @@ class SearchButtonPressedEvent extends SearchEvent {
   final String? fromCity;
   final String? toCity;
   final DateTime? departureDate;
+  final bool isLoading = true;
   SearchButtonPressedEvent({
     required this.fromCity,
     required this.toCity,
