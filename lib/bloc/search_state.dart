@@ -6,7 +6,7 @@ abstract class SearchState {
   final DateTime? departureDate;
   final bool isLoading;
   final String? errorMessage;
-  final Object? resultedState;
+  final dynamic resultedState;
 
   // Constructor
   SearchState({
@@ -25,7 +25,7 @@ abstract class SearchState {
     DateTime? departureDate,
     bool? isLoading,
     String? errorMessage,
-    Object? resultedState,
+    dynamic resultedState,
   });
 
   // Factory method to create an initial state
@@ -90,7 +90,7 @@ class _InitialSearchState extends SearchState {
     DateTime? departureDate,
     bool? isLoading,
     String? errorMessage,
-    Object? resultedState,
+    dynamic resultedState,
   }) {
     // Return a new instance of _InitialSearchState with updated values
     // This allows for immutability and ensures that the state can be updated without modifying the original instance
@@ -122,7 +122,7 @@ class _LoadingSearchState extends SearchState {
     String? toCity,
     bool? isLoading,
     String? errorMessage,
-    Object? resultedState,
+    dynamic resultedState,
   }) {
     return _LoadingSearchState(
       departureDate: departureDate ?? this.departureDate,
@@ -151,7 +151,7 @@ class _SuccessSearchState extends SearchState {
     String? toCity,
     bool? isLoading,
     String? errorMessage,
-    Object? resultedState,
+    dynamic resultedState,
   }) {
     return _SuccessSearchState(
       departureDate: departureDate ?? this.departureDate,
@@ -181,7 +181,7 @@ class _ErrorSearchState extends SearchState {
     String? toCity,
     bool? isLoading,
     String? errorMessage,
-    Object? resultedState,
+    dynamic resultedState,
   }) {
     return _ErrorSearchState(
       departureDate: departureDate ?? this.departureDate,

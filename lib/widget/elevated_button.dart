@@ -14,9 +14,11 @@ class SearchButton extends StatelessWidget {
       builder: (context, state) {
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            disabledBackgroundColor: Colors.transparent,
             minimumSize: const Size.fromHeight(50),
             fixedSize: const Size(80, 20),
-            backgroundColor: Colors.transparent,
+            //backgroundColor: Colors.transparent,
             overlayColor: Colors.transparent,
           ),
           onPressed: state.isLoading ? null : () => _handleSearch(context),

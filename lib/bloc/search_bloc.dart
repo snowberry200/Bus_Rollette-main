@@ -88,7 +88,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       );
 
       // Simulate a network call or processing delay
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 5));
 
       emit(
         _SuccessSearchState(
@@ -115,10 +115,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     } finally {
       // Reset the loading state after the search is complete
       emit(
-        _InitialSearchState(
-          fromCity: event.fromCity,
-          toCity: event.toCity,
-          departureDate: event.departureDate,
+        state.copyWith(
           isLoading: false,
           resultedState: SearchValidation.validateSearch,
         ),
