@@ -107,7 +107,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           fromCity: state.fromCity,
           toCity: state.toCity,
           departureDate: state.departureDate,
-          isLoading: state.isLoading,
+          isLoading: false,
           errorMessage: e.toString(),
           resultedState: SearchValidation.validateSearch,
         ),
