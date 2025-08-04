@@ -107,19 +107,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           fromCity: state.fromCity,
           toCity: state.toCity,
           departureDate: state.departureDate,
-          isLoading: false,
+          isLoading: state.isLoading,
           errorMessage: e.toString(),
-          resultedState: SearchValidation.validateSearch,
+          resultedState: state.resultedState,
         ),
       );
     } finally {
       // Reset the loading state after the search is complete
-      emit(
-        state.copyWith(
-          isLoading: false,
-          resultedState: SearchValidation.validateSearch,
-        ),
-      );
+      emit(state.copyWith(isLoading: false));
     }
   }
 }
