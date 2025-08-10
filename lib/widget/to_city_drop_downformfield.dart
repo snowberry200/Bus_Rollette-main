@@ -35,7 +35,11 @@ class ToCityDropDownWidgetState extends State<ToCityDropDownWidget> {
 
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),
-          icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.grey),
+          icon: Icon(
+            Icons.arrow_drop_down_circle_outlined,
+            size: 24,
+            color: state.toCity == null ? Colors.grey : Colors.blue,
+          ),
           iconEnabledColor: Colors.green,
           hint: const Text(
             "to:",
@@ -49,7 +53,7 @@ class ToCityDropDownWidgetState extends State<ToCityDropDownWidget> {
               .map((city) => DropdownMenuItem(value: city, child: Text(city)))
               .toList(),
           onChanged: (value) {
-            if (value != null) {
+            if (value!.isNotEmpty) {
               toCityBloc.add(ToCityChangeEvent(toCity: value));
             }
           },

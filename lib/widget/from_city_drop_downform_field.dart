@@ -33,7 +33,10 @@ class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
           value: state.fromCity,
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),
-          icon: const Icon(Icons.arrow_drop_down_circle, color: Colors.grey),
+          icon: Icon(
+            Icons.arrow_drop_down_circle_outlined,
+            color: state.fromCity == null ? Colors.grey : Colors.green,
+          ),
           iconEnabledColor: Colors.green,
           hint: const Text(
             "from:",
@@ -47,7 +50,7 @@ class FromCityDropDownWidgetState extends State<FromCityDropDownWidget> {
               .map((city) => DropdownMenuItem(value: city, child: Text(city)))
               .toList(),
           onChanged: (value) {
-            if (value != null) {
+            if (value!.isNotEmpty) {
               fromCityBloc.add(FromCityChangeEvent(fromCity: value));
             }
           },

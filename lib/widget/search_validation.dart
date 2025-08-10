@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchValidation {
+  SearchValidation._();
   static bool validateSearch({
     required BuildContext context,
     required String? fromCity,
@@ -93,7 +94,7 @@ class SearchValidation {
     return const CircularProgressIndicator(
       strokeCap: StrokeCap.square,
       backgroundColor: CupertinoColors.darkBackgroundGray,
-      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      valueColor: AlwaysStoppedAnimation<Color>(CupertinoColors.inactiveGray),
       strokeWidth: 5.0,
     );
   }

@@ -1,6 +1,6 @@
 part of 'search_bloc.dart';
 
-abstract class SearchState {
+abstract class SearchState extends Equatable {
   final String? fromCity;
   final String? toCity;
   final DateTime? departureDate;
@@ -9,7 +9,7 @@ abstract class SearchState {
   final dynamic resultedState;
 
   // Constructor
-  SearchState({
+  const SearchState({
     this.fromCity,
     this.toCity,
     this.departureDate,
@@ -27,6 +27,16 @@ abstract class SearchState {
     String? errorMessage,
     dynamic resultedState,
   });
+
+  @override
+  List<Object?> get props => [
+    fromCity,
+    toCity,
+    departureDate,
+    isLoading,
+    errorMessage,
+    resultedState,
+  ];
 
   // Factory method to create an initial state
   factory SearchState.initial(SearchState prevState) => _InitialSearchState(
@@ -73,8 +83,9 @@ abstract class SearchState {
   }
 }
 
+// _InitialSearchState subClass
 class _InitialSearchState extends SearchState {
-  _InitialSearchState({
+  const _InitialSearchState({
     super.errorMessage,
     super.fromCity,
     super.toCity,
@@ -105,9 +116,9 @@ class _InitialSearchState extends SearchState {
   }
 }
 
-//_LoadingSearchState Class
+//_LoadingSearchState subClass
 class _LoadingSearchState extends SearchState {
-  _LoadingSearchState({
+  const _LoadingSearchState({
     super.fromCity,
     super.departureDate,
     super.toCity,
@@ -135,8 +146,9 @@ class _LoadingSearchState extends SearchState {
   }
 }
 
+// _SuccessSearchState subClass
 class _SuccessSearchState extends SearchState {
-  _SuccessSearchState({
+  const _SuccessSearchState({
     super.fromCity,
     super.departureDate,
     super.toCity,
@@ -164,8 +176,9 @@ class _SuccessSearchState extends SearchState {
   }
 }
 
+// _ErrorSearchState subClass
 class _ErrorSearchState extends SearchState {
-  _ErrorSearchState({
+  const _ErrorSearchState({
     super.fromCity,
     super.departureDate,
     super.toCity,
