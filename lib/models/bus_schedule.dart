@@ -1,16 +1,18 @@
+import 'package:equatable/equatable.dart';
+
 import 'bus_model.dart';
 import 'but_route.dart';
 
-class BusSchedule {
-  int? scheduleId;
-  Bus bus;
-  BusRoute busRoute;
-  String departureTime;
-  int ticketPrice;
-  int discount;
-  int processingFee;
+class BusSchedule extends Equatable {
+  final int? scheduleId;
+  final Bus bus;
+  final BusRoute busRoute;
+  final String departureTime;
+  final int ticketPrice;
+  final int discount;
+  final int processingFee;
 
-  BusSchedule({
+  const BusSchedule({
     this.scheduleId,
     required this.bus,
     required this.busRoute,
@@ -19,4 +21,15 @@ class BusSchedule {
     this.discount = 0,
     this.processingFee = 50,
   });
+
+  @override
+  List<Object?> get props => [
+    scheduleId,
+    bus,
+    busRoute,
+    departureTime,
+    ticketPrice,
+    discount,
+    processingFee,
+  ];
 }

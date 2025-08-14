@@ -49,38 +49,34 @@ abstract class SearchState extends Equatable {
   );
 
   // Factory method to create a loading state
-  factory SearchState.loading(SearchState prevState) {
-    return _LoadingSearchState(
-      fromCity: prevState.fromCity,
-      toCity: prevState.toCity,
-      departureDate: prevState.departureDate,
-      isLoading: prevState.isLoading,
-      errorMessage: prevState.errorMessage,
-      resultedState: prevState.resultedState,
-    );
-  }
+  factory SearchState.loading(SearchState prevState) => _LoadingSearchState(
+    fromCity: prevState.fromCity,
+    toCity: prevState.toCity,
+    departureDate: prevState.departureDate,
+    isLoading: prevState.isLoading,
+    errorMessage: prevState.errorMessage,
+    resultedState: prevState.resultedState,
+  );
+
   //factory method to create a success state
-  factory SearchState.success(SearchState prevState) {
-    return _SuccessSearchState(
-      fromCity: prevState.fromCity,
-      toCity: prevState.toCity,
-      departureDate: prevState.departureDate,
-      isLoading: prevState.isLoading,
-      errorMessage: prevState.errorMessage,
-      resultedState: prevState.resultedState,
-    );
-  }
+  factory SearchState.success(SearchState prevState) => _SuccessSearchState(
+    fromCity: prevState.fromCity,
+    toCity: prevState.toCity,
+    departureDate: prevState.departureDate,
+    isLoading: prevState.isLoading,
+    errorMessage: prevState.errorMessage,
+    resultedState: prevState.resultedState,
+  );
+
   // Factory method to create an error state
-  factory SearchState.error(SearchState prevState, String errorMessage) {
-    return _ErrorSearchState(
-      fromCity: prevState.fromCity,
-      toCity: prevState.toCity,
-      departureDate: prevState.departureDate,
-      isLoading: prevState.isLoading,
-      errorMessage: errorMessage,
-      resultedState: prevState.resultedState,
-    );
-  }
+  factory SearchState.error(SearchState prevState) => _ErrorSearchState(
+    fromCity: prevState.fromCity,
+    toCity: prevState.toCity,
+    departureDate: prevState.departureDate,
+    isLoading: prevState.isLoading,
+    errorMessage: prevState.errorMessage,
+    resultedState: prevState.resultedState,
+  );
 }
 
 // _InitialSearchState subClass

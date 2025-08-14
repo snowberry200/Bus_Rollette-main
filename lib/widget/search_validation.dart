@@ -4,6 +4,38 @@ import 'package:flutter/material.dart';
 
 class SearchValidation {
   SearchValidation._();
+
+  static dynamic showError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 4),
+      ),
+    );
+  }
+
+  static void _showProgress(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.blue),
+    );
+  }
+
+  static void _showSuccess(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.green),
+    );
+  }
+
+  static CircularProgressIndicator showProgressiveBar() {
+    return const CircularProgressIndicator(
+      strokeCap: StrokeCap.square,
+      backgroundColor: CupertinoColors.darkBackgroundGray,
+      valueColor: AlwaysStoppedAnimation<Color>(CupertinoColors.inactiveGray),
+      strokeWidth: 5.0,
+    );
+  }
+
   static bool validateSearch({
     required BuildContext context,
     required String? fromCity,
@@ -66,36 +98,5 @@ class SearchValidation {
       }
       return false;
     }
-  }
-
-  static dynamic showError(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.red,
-        duration: const Duration(seconds: 4),
-      ),
-    );
-  }
-
-  static void _showProgress(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.blue),
-    );
-  }
-
-  static void _showSuccess(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.green),
-    );
-  }
-
-  static CircularProgressIndicator showProgressiveBar() {
-    return const CircularProgressIndicator(
-      strokeCap: StrokeCap.square,
-      backgroundColor: CupertinoColors.darkBackgroundGray,
-      valueColor: AlwaysStoppedAnimation<Color>(CupertinoColors.inactiveGray),
-      strokeWidth: 5.0,
-    );
   }
 }

@@ -1,19 +1,20 @@
+import 'package:equatable/equatable.dart';
 
 import 'bus_schedule.dart';
 import 'customer.dart';
 
-class BusReservation {
-  int? reservationId;
-  Customer customer;
-  BusSchedule busSchedule;
-  int timestamp;
-  String departureDate;
-  int totalSeatBooked;
-  String seatNumbers;
-  String reservationStatus;
-  int totalPrice;
+class BusReservation extends Equatable {
+  final int? reservationId;
+  final Customer customer;
+  final BusSchedule busSchedule;
+  final int timestamp;
+  final String departureDate;
+  final int totalSeatBooked;
+  final String seatNumbers;
+  final String reservationStatus;
+  final int totalPrice;
 
-  BusReservation({
+  const BusReservation({
     this.reservationId,
     required this.customer,
     required this.busSchedule,
@@ -24,4 +25,17 @@ class BusReservation {
     required this.reservationStatus,
     required this.totalPrice,
   });
+
+  @override
+  List<Object?> get props => [
+    reservationId,
+    customer,
+    busSchedule,
+    timestamp,
+    departureDate,
+    totalSeatBooked,
+    seatNumbers,
+    reservationStatus,
+    totalPrice,
+  ];
 }

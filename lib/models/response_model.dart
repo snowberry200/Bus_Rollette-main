@@ -1,15 +1,20 @@
+import 'package:equatable/equatable.dart';
+
 import '../utils/constants.dart';
 
-class ResponseModel {
-  ResponseStatus responseStatus;
-  int statusCode;
-  String message;
-  Map<String, dynamic> object;
+class ResponseModel extends Equatable {
+  final ResponseStatus responseStatus;
+  final int statusCode;
+  final String message;
+  final Map<String, dynamic> object;
 
-  ResponseModel({
+  const ResponseModel({
     required this.responseStatus,
     required this.statusCode,
     required this.message,
     required this.object,
   });
+
+  @override
+  List<Object?> get props => [responseStatus, statusCode, message, object];
 }
