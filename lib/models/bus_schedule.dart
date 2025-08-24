@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'bus_model.dart';
-import 'but_route.dart';
+import 'bus_route.dart';
 
 class BusSchedule extends Equatable {
   final int? scheduleId;

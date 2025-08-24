@@ -4,7 +4,7 @@ import 'package:bus_rullette/models/auth_response_model.dart';
 import 'package:bus_rullette/models/bus_model.dart';
 import 'package:bus_rullette/models/bus_reservation.dart';
 import 'package:bus_rullette/models/bus_schedule.dart';
-import 'package:bus_rullette/models/but_route.dart';
+import 'package:bus_rullette/models/bus_route.dart';
 import 'package:bus_rullette/models/response_model.dart';
 
 class DummyDatasource extends DataSource {
@@ -62,10 +62,7 @@ class DummyDatasource extends DataSource {
   }
 
   @override
-  Future<BusRoute?> getRouteByCityFromAndCityTo(
-    String cityFrom,
-    String cityTo,
-  ) {
+  Future<BusRoute>? getRouteByCityFromAndCityTo(cityFrom, cityTo) {
     throw UnimplementedError();
   }
 

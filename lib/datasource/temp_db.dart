@@ -1,29 +1,32 @@
 import '../models/bus_model.dart';
 import '../models/bus_reservation.dart';
 import '../models/bus_schedule.dart';
-import '../models/but_route.dart';
+import '../models/bus_route.dart';
 import '../utils/constants.dart';
 
 class TempDB {
   static List<Bus> tableBus = [
     Bus(
-        busId: 1,
-        busName: 'Test Bus',
-        busNumber: 'Test-0001',
-        busType: busTypeACBusiness,
-        totalSeat: 18),
+      busId: 1,
+      busName: 'Test Bus',
+      busNumber: 'Test-0001',
+      busType: busTypeACBusiness,
+      totalSeat: 18,
+    ),
     Bus(
-        busId: 2,
-        busName: 'Test Bus',
-        busNumber: 'Test-0002',
-        busType: busTypeACEconomy,
-        totalSeat: 32),
+      busId: 2,
+      busName: 'Test Bus',
+      busNumber: 'Test-0002',
+      busType: busTypeACEconomy,
+      totalSeat: 32,
+    ),
     Bus(
-        busId: 3,
-        busName: 'Test Bus',
-        busNumber: 'Test-0003',
-        busType: busTypeNonAc,
-        totalSeat: 40),
+      busId: 3,
+      busName: 'Test Bus',
+      busNumber: 'Test-0003',
+      busType: busTypeNonAc,
+      totalSeat: 40,
+    ),
   ];
 
   static List<BusRoute> tableRoute = [
