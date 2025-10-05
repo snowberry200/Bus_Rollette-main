@@ -31,7 +31,7 @@ class ToCityDropDownWidgetState extends State<ToCityDropDownWidget> {
         final toCityBloc = context.read<SearchBloc>();
 
         return DropdownButtonFormField<String>(
-          value: state.toCity,
+          initialValue: state.toCity,
 
           dropdownColor: CupertinoColors.black,
           style: const TextStyle(color: Colors.white, fontSize: 20),

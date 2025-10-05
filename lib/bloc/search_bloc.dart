@@ -18,6 +18,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchButtonPressedEvent>(_onSearchButtonPressed);
   }
 
+  // Event handlers
+  //from city changed
   void _onFromCityChanged(
     FromCityChangeEvent event,
     Emitter<SearchState> emit,
@@ -33,6 +35,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
+  //to city changed
   void _onToCityChanged(ToCityChangeEvent event, Emitter<SearchState> emit) {
     emit(
       _InitialSearchState(
@@ -45,6 +48,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
+  //date changed
   void _onDateChanged(DateChangeEvent event, Emitter<SearchState> emit) {
     emit(
       _InitialSearchState(
@@ -57,6 +61,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
+  //search button pressed
   FutureOr<void> _onSearchButtonPressed(
     SearchButtonPressedEvent event,
     Emitter<SearchState> emit,
@@ -92,6 +97,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       // Simulate a network call or processing delay
       await Future.delayed(const Duration(seconds: 5));
 
+      // success state
       emit(
         _SuccessSearchState(
           fromCity: event.fromCity,
@@ -103,6 +109,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         ),
       );
       await Future.delayed(const Duration(seconds: 2));
+
       // Navigate to the SearchResultPage
       Navigator.of(
         formKey.currentContext!,
@@ -124,7 +131,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       );
     } finally {
       // Reset the loading state after the search is complete
-      emit(state.copyWith(isLoading: false));
+      emit(
+        state.copyWith(
+          isLoading: formKey.currentContext != null ? false : true,
+        ),
+      );
     }
   }
 }
