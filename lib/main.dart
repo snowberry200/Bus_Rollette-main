@@ -1,8 +1,16 @@
+import 'package:bus_rullette/utils/constants.dart';
 import 'package:bus_rullette/widget/form_widget.dart';
+import 'package:bus_rullette/widget/search_resultpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
+  runApp(
+    MaterialApp(
+      routes: {routeNameSearchResultPage: (context) => SearchResultPage()},
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

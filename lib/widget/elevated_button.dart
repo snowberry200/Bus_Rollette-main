@@ -49,6 +49,7 @@ class SearchButton extends StatelessWidget {
         fromCity: buttonBloc.state.fromCity,
         toCity: buttonBloc.state.toCity,
         departureDate: buttonBloc.state.departureDate,
+        errorMessage: buttonBloc.state.errorMessage,
       ),
     );
   }

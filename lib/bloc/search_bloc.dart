@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:bus_rullette/utils/constants.dart';
 import 'package:bus_rullette/widget/search_validation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -80,9 +81,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       //loading state
       emit(
         _LoadingSearchState(
-          fromCity: state.fromCity,
-          toCity: state.toCity,
-          departureDate: state.departureDate,
+          fromCity: event.fromCity,
+          toCity: event.toCity,
+          departureDate: event.departureDate,
           isLoading: event.isLoading,
           resultedState: isValid,
         ),
@@ -101,6 +102,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           errorMessage: state.errorMessage,
         ),
       );
+      await Future.delayed(const Duration(seconds: 2));
+      // Navigate to the SearchResultPage
+      Navigator.of(
+        formKey.currentContext!,
+      ).pushNamed(routeNameSearchResultPage);
     } catch (e) {
       // Emit error state
       emit(
@@ -109,7 +115,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           toCity: state.toCity,
           departureDate: state.departureDate,
           isLoading: state.isLoading,
-          errorMessage: e.toString(),
+          errorMessage: SearchValidation.showError(
+            formKey.currentContext!,
+            event.errorMessage!,
+          ),
           resultedState: state.resultedState,
         ),
       );

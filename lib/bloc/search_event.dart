@@ -32,10 +32,14 @@ class SearchButtonPressedEvent extends SearchEvent {
   final String? toCity;
   final DateTime? departureDate;
   final bool isLoading;
+  final String? errorMessage;
+
+  // Constructor
   SearchButtonPressedEvent({
     required this.fromCity,
     required this.toCity,
     required this.departureDate,
+    required this.errorMessage,
     this.isLoading = true,
   });
   @override

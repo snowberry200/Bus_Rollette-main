@@ -118,7 +118,7 @@ class _LoadingSearchState extends SearchState {
     super.fromCity,
     super.departureDate,
     super.toCity,
-    super.isLoading,
+    required super.isLoading,
     super.errorMessage,
     super.resultedState,
   });
