@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d390378c-3d4d-4fc0-96ab-c7f259564ac2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/widget/elevated_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/elevated_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widget/from_city_drop_downform_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/from_city_drop_downform_field.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widget/search_validation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/search_validation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widget/to_city_drop_downformfield.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/to_city_drop_downformfield.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="30rWiVPS1mUWiwhIS0aKO8Lo3U6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application..executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/fiifi/Documents/flutter/bus/Bus_Rollette-main",
+    "settings.editor.selected.configurable": "dart.settings"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d390378c-3d4d-4fc0-96ab-c7f259564ac2" name="Changes" comment="" />
+      <created>1754386298657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1754386298657</updated>
+    </task>
+    <servers />
+  </component>
+</project>

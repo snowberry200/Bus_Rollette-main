@@ -20,6 +20,14 @@ class FormWidgetMap extends Equatable {
     required this.rowWidgetKey,
     required this.formWidgetKey,
   });
+
+  Map<String, Widget> get widgets => {
+    'from': FromCityDropDownWidget(key: fromCityKey),
+    'to': ToCityDropDownWidget(key: toCityKey),
+    'selectDate': RowWidget(key: rowWidgetKey),
+    'searchButton': SearchButton(formKey: formKey),
+  };
+
   @override
   List<Object?> get props => [
     formKey,
@@ -28,11 +36,4 @@ class FormWidgetMap extends Equatable {
     rowWidgetKey,
     formWidgetKey,
   ];
-
-  Map<String, Widget> get widgets => {
-    'from': FromCityDropDownWidget(key: fromCityKey),
-    'to': ToCityDropDownWidget(key: toCityKey),
-    'selectDate': RowWidget(key: rowWidgetKey),
-    'searchButton': SearchButton(formKey: formKey),
-  };
 }

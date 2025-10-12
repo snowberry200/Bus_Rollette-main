@@ -1,0 +1,31 @@
+{
+  "" : {
+    "const-values" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary.swiftconstvalues",
+    "dependencies" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary.d",
+    "diagnostics" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary.dia",
+    "emit-module-dependencies" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary-emit-module.dia",
+    "pch" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/Runner-primary.swiftdeps"
+  },
+  "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedAssetSymbols.o"
+  },
+  "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/macos/Flutter/GeneratedPluginRegistrant.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedPluginRegistrant.o",
+    "llvm-bc" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedPluginRegistrant.bc",
+    "object" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/GeneratedPluginRegistrant.o"
+  },
+  "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/macos/Runner/AppDelegate.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release/Runner.build/Objects-normal/x86_64/AppDelegate.o",
+    "llvm-bc" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/AppDelegate.bc",
+    "object" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/AppDelegate.o"
+  },
+  "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/macos/Runner/MainFlutterWindow.swift" : {
+    "index-unit-output-path" : "/Runner.build/Release/Runner.build/Objects-normal/x86_64/MainFlutterWindow.o",
+    "llvm-bc" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/MainFlutterWindow.bc",
+    "object" : "/Users/fiifi/Documents/Documents - Collins’s MacBook Pro (2)/flutter/bus/Bus_Rollette-main/build/macos/Build/Intermediates.noindex/Runner.build/Release/Runner.build/Objects-normal/x86_64/MainFlutterWindow.o"
+  }
+}

@@ -72,6 +72,7 @@ class SearchValidation {
 
     if (isLoading == true) {
       showProgressiveBar();
+      return false;
     }
 
     //Validate route
@@ -83,15 +84,19 @@ class SearchValidation {
       final route = TempDB.tableRoute.firstWhere(
         (element) => element.cityFrom == fromCity && element.cityTo == toCity,
       );
+
+      // if route is found
       if (context.mounted) {
         _showSuccess(context, "Found route: ${route.routeName}");
       }
       return true;
+      // If no route is found, firstWhere throws a StateError
     } on StateError {
       if (context.mounted) {
         showError(context, "No buses found for this route");
       }
       return false;
+      // Any other exceptions
     } catch (e) {
       if (context.mounted) {
         showError(context, "Search failed: ${e.toString()}");
