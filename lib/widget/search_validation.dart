@@ -78,12 +78,12 @@ class SearchValidation {
     //Validate route
 
     try {
-      _showProgress(context, "Searching for routes...");
-      Future.delayed(const Duration(seconds: 1)); // Simulate network
-
       final route = TempDB.tableRoute.firstWhere(
         (element) => element.cityFrom == fromCity && element.cityTo == toCity,
       );
+
+      _showProgress(context, "Searching for routes...");
+      Future.delayed(const Duration(seconds: 1)); // Simulate network
 
       // if route is found
       if (context.mounted) {
