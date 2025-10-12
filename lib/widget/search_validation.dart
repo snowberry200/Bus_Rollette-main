@@ -72,7 +72,6 @@ class SearchValidation {
 
     if (isLoading == true) {
       showProgressiveBar();
-      return false;
     }
 
     //Validate route
@@ -81,7 +80,6 @@ class SearchValidation {
       final route = TempDB.tableRoute.firstWhere(
         (element) => element.cityFrom == fromCity && element.cityTo == toCity,
       );
-
       _showProgress(context, "Searching for routes...");
       Future.delayed(const Duration(seconds: 1)); // Simulate network
 
