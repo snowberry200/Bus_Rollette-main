@@ -28,20 +28,8 @@ class DateChangeEvent extends SearchEvent {
 }
 
 class SearchButtonPressedEvent extends SearchEvent {
-  final String? fromCity;
-  final String? toCity;
-  final DateTime? departureDate;
-  final bool isLoading;
-  final String? errorMessage;
-
   // Constructor
-  SearchButtonPressedEvent({
-    required this.fromCity,
-    required this.toCity,
-    required this.departureDate,
-    required this.errorMessage,
-    this.isLoading = true,
-  });
+  SearchButtonPressedEvent();
   @override
-  List<Object?> get props => [fromCity, toCity, departureDate, isLoading];
+  List<Object?> get props => [];
 }

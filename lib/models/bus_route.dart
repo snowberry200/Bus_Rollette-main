@@ -5,7 +5,7 @@ class BusRoute extends Equatable {
   final String routeName;
   final String cityFrom;
   final String cityTo;
-  final double distanceInKm;
+  final double? distanceInKm;
 
   const BusRoute({
     this.routeId,
