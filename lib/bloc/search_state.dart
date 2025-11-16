@@ -4,10 +4,7 @@ abstract class SearchState extends Equatable {
   final String? fromCity;
   final String? toCity;
   final DateTime? departureDate;
-  BusRoute? get route;
-  //  => TempDB.tableRoute.firstWhere(
-  //   (element) => element.cityFrom == fromCity && element.cityTo == toCity,
-  //);
+  BusRoute? get route => null;
   bool get isLoading => false;
 
   const SearchState({this.fromCity, this.toCity, this.departureDate});
@@ -23,9 +20,6 @@ class InitialState extends SearchState {
 
   @override
   List<Object?> get props => [fromCity, toCity, departureDate];
-
-  @override
-  BusRoute? get route => null;
 }
 
 //LoadingSearchState subClass
@@ -37,8 +31,7 @@ class LoadingSearchState extends SearchState {
     super.departureDate,
     super.toCity,
   });
-  @override
-  BusRoute? get route => null;
+
   @override
   bool get isLoading => loading;
   @override
@@ -58,7 +51,7 @@ class SuccessSearchState extends SearchState {
   BusRoute get route => router;
 
   @override
-  List<Object?> get props => [fromCity, toCity, departureDate, route];
+  List<Object?> get props => [router, fromCity, toCity, departureDate, route];
 }
 
 // ErrorSearchState subClass
@@ -72,8 +65,5 @@ class ErrorSearchState extends SearchState {
   });
 
   @override
-  List<Object?> get props => [fromCity, toCity, departureDate];
-
-  @override
-  BusRoute? get route => null;
+  List<Object?> get props => [message, fromCity, toCity, departureDate];
 }

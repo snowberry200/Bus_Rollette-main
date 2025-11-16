@@ -45,46 +45,27 @@ class SearchButton extends StatelessWidget {
       },
       listener: (BuildContext context, SearchState state) {
         if (state is LoadingSearchState) {
-          SearchValidation.showProgressiveBar();
           SearchValidation.showProgress(context, "Searching for routes...");
         }
         if (state is SuccessSearchState) {
-          try {
-            if (state.route !=
-                TempDB.tableRoute.firstWhere(
-                  (element) =>
-                      element.cityFrom == state.fromCity &&
-                      element.cityTo == state.toCity,
-                )) {
-              SearchValidation.showError(
-                context,
-                "No buses found for this route",
-              );
-            }
-
-            //if true
-
-            SearchValidation.showSuccess(
+          SearchValidation.showSuccess(
+            context,
+            "Found route: ${state.route.routeName}",
+          );
+          if (context.mounted) {
+            Future.delayed(Duration(seconds: 1));
+            Navigator.pushNamed(
               context,
-              "found route : ${state.route.routeName}",
+              routeNameSearchResultPage,
+              arguments: {
+                'route': state.route,
+                'departureDate': state.departureDate,
+              },
             );
-          } on StateError {
-            if (context.mounted) {
-              SearchValidation.showError(
-                context,
-                "No buses found for this route",
-              );
-            }
-          } catch (e) {
-            if (context.mounted) {
-              SearchValidation.showError(
-                context,
-                "Search failed: ${e.toString()}",
-              );
-            }
           }
-          Future.delayed(Duration(seconds: 2));
-          Navigator.pushNamed(context, routeNameSearchResultPage);
+        }
+        if (state is ErrorSearchState) {
+          SearchValidation.showError(context, state.message);
         }
       },
     );
@@ -92,7 +73,6 @@ class SearchButton extends StatelessWidget {
 
   void _handleSearch(BuildContext context, SearchState state) {
     try {
-      // Use the fixed validation method
       final isValid = SearchValidation.validateSearch(
         context: context,
         fromCity: state.fromCity,
@@ -101,11 +81,22 @@ class SearchButton extends StatelessWidget {
       );
 
       if (isValid) {
-        context.read<SearchBloc>().add(SearchButtonPressedEvent());
+        context.read<SearchBloc>().add(
+          SearchButtonPressedEvent(
+            eRoute: TempDB.tableRoute.firstWhere(
+              (element) =>
+                  element.cityFrom == state.fromCity &&
+                  element.cityTo == state.toCity,
+            ),
+          ),
+        );
       }
-    } catch (e) {
-      print("Error in _handleSearch: $e");
-      SearchValidation.showError(context, "An error occurred: ${e.toString()}");
+    } catch (_) {
+      SearchValidation.showProgress(context, "Searching for routes...");
+      SearchValidation.showError(
+        context,
+        'No buses found for route: ${state.fromCity} to ${state.toCity}',
+      );
     }
   }
 }

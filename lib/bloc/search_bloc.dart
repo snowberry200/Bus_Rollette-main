@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bus_rullette/datasource/temp_db.dart';
 import 'package:bus_rullette/models/bus_route.dart';
 
 import 'package:equatable/equatable.dart';
@@ -63,55 +62,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchButtonPressedEvent event,
     Emitter<SearchState> emit,
   ) async {
-    // Validate inputs first
-    if (state.fromCity == null || state.toCity == null) {
-      emit(
-        ErrorSearchState(
-          message: 'Please select both from and to cities',
-          fromCity: state.fromCity,
-          toCity: state.toCity,
-          departureDate: state.departureDate,
-        ),
-      );
-      return;
-    }
-
     emit(
       LoadingSearchState(
-        loading: true,
+        loading: event.isLoading,
         fromCity: state.fromCity,
         toCity: state.toCity,
         departureDate: state.departureDate,
       ),
     );
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
 
     try {
-      // Use firstWhereOrNull instead of firstWhere to avoid StateError
-      final route = TempDB.tableRoute.firstWhere(
-        (element) =>
-            element.cityFrom == state.fromCity &&
-            element.cityTo == state.toCity,
-        orElse: () => throw StateError('No route found'), // Custom handling
-      );
-
       emit(
         SuccessSearchState(
           fromCity: state.fromCity,
           departureDate: state.departureDate,
           toCity: state.toCity,
-          router: route,
-        ),
-      );
-    } on StateError catch (_) {
-      emit(
-        ErrorSearchState(
-          message:
-              'No buses found for route: ${state.fromCity} to ${state.toCity}',
-          fromCity: state.fromCity,
-          toCity: state.toCity,
-          departureDate: state.departureDate,
+          router: event.route,
         ),
       );
     } catch (e) {

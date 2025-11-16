@@ -1,7 +1,10 @@
 part of 'search_bloc.dart';
 
 @immutable
-abstract class SearchEvent extends Equatable {}
+abstract class SearchEvent extends Equatable {
+  bool get isLoading => false;
+  BusRoute? get route => null;
+}
 
 class FromCityChangeEvent extends SearchEvent {
   final String? fromCity;
@@ -13,6 +16,7 @@ class FromCityChangeEvent extends SearchEvent {
 
 class ToCityChangeEvent extends SearchEvent {
   final String? toCity;
+
   ToCityChangeEvent({this.toCity});
 
   @override
@@ -28,8 +32,13 @@ class DateChangeEvent extends SearchEvent {
 }
 
 class SearchButtonPressedEvent extends SearchEvent {
+  final BusRoute eRoute;
   // Constructor
-  SearchButtonPressedEvent();
+  SearchButtonPressedEvent({required this.eRoute});
   @override
   List<Object?> get props => [];
+  @override
+  bool get isLoading => true;
+  @override
+  BusRoute get route => eRoute;
 }
